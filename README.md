@@ -28,23 +28,23 @@ spec-g-code  ─── the spec hub (this repo)
 ## 🗺️ Development Plan
 
 ### Phase 1 — Ecosystem Overview
-- [ ] `specs/ecosystem.md` — How the six repos relate to each other
-- [ ] `specs/naming-conventions.md` — Repo naming, module prefixes, API versioning
+- [x] `specs/ecosystem.md` — How the six repos relate to each other
+- [x] `specs/naming-conventions.md` — Repo naming, module prefixes, API versioning
 
 ### Phase 2 — Core Specs
-- [ ] `specs/spiritual-g-code.md` — Dashboard, natal chart calculation, transit engine
-- [ ] `specs/sync-g-code.md` — Daily content generation pipeline, Gemini API contract
-- [ ] `specs/psychological-g-code.md` — Data schemas (chakras, sephirot, correspondences)
-- [ ] `specs/physiological-g-code.md` — Codon-hexagram mapping algorithms, API surface
+- [x] `specs/spiritual-g-code.md` — Dashboard, natal chart calculation, transit engine
+- [x] `specs/sync-g-code.md` — Daily content generation pipeline, Gemini API contract
+- [x] `specs/psychological-g-code.md` — Data schemas (chakras, sephirot, correspondences)
+- [x] `specs/physiological-g-code.md` — Codon-hexagram mapping algorithms, API surface
 
 ### Phase 3 — Cross-Cutting Concerns
-- [ ] `specs/authentication.md` — Shared auth model across projects
-- [ ] `specs/api-conventions.md` — REST API design, error formats, pagination
-- [ ] `specs/bilingual-output.md` — English + 繁體中文 output requirements
+- [x] `specs/authentication.md` — Shared auth model across projects
+- [x] `specs/api-conventions.md` — REST API design, error formats, pagination
+- [x] `specs/bilingual-output.md` — English + 繁體中文 output requirements
 
 ### Phase 4 — Tooling Specs
-- [ ] `specs/program-g-code.md` — CI/CD pipeline stages, notification hooks
-- [ ] `specs/skill-g-code.md` — Claude Code skill routing, global constraints
+- [x] `specs/program-g-code.md` — CI/CD pipeline stages, notification hooks
+- [x] `specs/skill-g-code.md` — Claude Code skill routing, global constraints
 
 ---
 
