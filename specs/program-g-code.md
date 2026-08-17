@@ -7,7 +7,7 @@
 
 ## Status
 
-Draft
+Approved (v1.0.0)
 
 ---
 

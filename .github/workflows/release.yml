@@ -1,0 +1,36 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Extract release notes from CHANGELOG
+      id: extract
+      run: |
+        VERSION=${GITHUB_REF#refs/tags/}
+        # Extract the section for this version from CHANGELOG.md
+        NOTES=$(sed -n "/^## \[${VERSION#v}\]/,/^---$/p" CHANGELOG.md | head -n -1 | tail -n +2)
+        if [ -z "$NOTES" ]; then
+          NOTES="See CHANGELOG.md for details."
+        fi
+        echo "notes<<EOF" >> $GITHUB_OUTPUT
+        echo "$NOTES" >> $GITHUB_OUTPUT
+        echo "EOF" >> $GITHUB_OUTPUT
+
+    - name: Create GitHub Release
+      uses: softprops/action-gh-release@v2
+      with:
+        body: ${{ steps.extract.outputs.notes }}
+        generate_release_notes: true

@@ -7,7 +7,7 @@
 
 ## Status
 
-Draft
+Approved (v1.0.0)
 
 ---
 
@@ -79,6 +79,78 @@ DailyTransit
 GeneratedContent
   ├── user FK, content_type, platform, content
   └── status, metadata JSON
+```
+
+---
+
+## Acceptance Criteria
+
+### Natal Chart (FR-1–4)
+
+```gherkin
+Given a user with birth_date=1990-06-15, birth_time=14:30, birth_location=Taipei
+When POST /api/natal/calculate/ is called
+Then the response contains chart_data with 10 planetary positions
+And sun_sign, moon_sign, ascendant are valid zodiac names
+And dominant_elements sums to a positive integer
+
+Given a user without birth_time
+When a natal chart is calculated
+Then birth_time defaults to 00:00 and the chart is still generated
+```
+
+### Transit Score (FR-5–7)
+
+```gherkin
+Given a user with a natal chart
+When the daily transit cron runs
+Then g_code_score is an integer between 1 and 100
+And intensity_level is one of: low, medium, high
+And at least one theme tag is present
+```
+
+---
+
+## Mock API Examples
+
+### Calculate Natal Chart
+
+```http
+POST /api/natal/calculate/
+Authorization: Bearer <token>
+
+{
+  "birth_date": "1990-06-15",
+  "birth_time": "14:30",
+  "birth_location": "Taipei, Taiwan",
+  "timezone": "Asia/Taipei"
+}
+```
+
+```json
+{
+  "chart_data": {
+    "sun": {"sign": "Gemini", "degree": 24.3, "longitude": 84.3},
+    "moon": {"sign": "Cancer", "degree": 8.2, "longitude": 98.2},
+    "ascendant": "Leo",
+    "dominant_elements": {"fire": 2, "earth": 3, "air": 4, "water": 1}
+  },
+  "sun_sign": "Gemini",
+  "moon_sign": "Cancer",
+  "key_aspects": [
+    {"bodies": ["sun", "moon"], "type": "square", "orb": 2.1}
+  ]
+}
+```
+
+### Error — Invalid Birth Date
+
+```json
+{
+  "error": "Invalid birth_date format. Use YYYY-MM-DD.",
+  "code": "validation_error",
+  "details": {"birth_date": "Date must be in the past"}
+}
 ```
 
 ---

@@ -7,7 +7,7 @@
 
 ## Status
 
-Draft
+Approved (v1.0.0)
 
 ---
 
@@ -81,6 +81,65 @@ const viz = new ChakraKabbalahVisualization('container', {
   showChakras: true, showSephirot: true, interactive: true
 });
 viz.init();
+```
+
+---
+
+## Acceptance Criteria
+
+### Data Validation (FR-1–5)
+
+```gherkin
+Given chakras.json contains 7 entries
+When npm run validate executes
+Then all entries pass the "chakra" schema (id, name, number, location required)
+And the exit code is 0
+
+Given correspondences.json has an entry with sephira_id as an array
+When npm run validate executes
+Then the entry passes because "anyOf: string | array" allows multi-mapping
+```
+
+### Assessment Engine (FR-6–10)
+
+```gherkin
+Given 56 questions with 8 per level
+When generateReport(assessmentData, userResponses, pillarResponses) is called
+Then the report includes per-chakra balance scores (0–100)
+And pillar dominance identifies the strongest of Mercy/Severity/Balance
+And at least one practice recommendation is generated
+```
+
+### Visualization (FR-11–14)
+
+```gherkin
+Given a browser opens src/visualization/example.html
+When a chakra or sephira is clicked
+Then an information panel displays its attributes
+And correspondence overlays highlight the mapped counterpart
+```
+
+---
+
+## Mock API Examples
+
+### Assessment Report Output
+
+```json
+{
+  "levels": [
+    {"chakra": "Muladhara", "score": 72, "balance": "grounded"},
+    {"chakra": "Sahasrara", "score": 45, "balance": "underactive"}
+  ],
+  "pillar_dominance": "Severity",
+  "recommendations": [
+    "Practice grounding meditation for 10 minutes daily",
+    "Focus on heart-opening practices to balance Severity dominance"
+  ],
+  "total_xp": 1240,
+  "level": "Record Clerk",
+  "streak": 3
+}
 ```
 
 ---
