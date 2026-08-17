@@ -1,0 +1,100 @@
+name: CI - Spec Validation
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.12'
+
+    - name: Validate spec structure
+      run: |
+        python - <<'PYEOF'
+        import sys, pathlib
+
+        SPECS_DIR = pathlib.Path("specs")
+        BASE_REQUIRED = ["## Status", "## Scope"]
+        FR_REQUIRED = ["## Functional Requirements"]
+        # Phase 2+ specs (feature/project specs) need Functional Requirements
+        FR_SPECS = [
+            "spiritual-g-code", "sync-g-code", "psychological-g-code",
+            "physiological-g-code", "authentication", "api-conventions",
+            "bilingual-output", "program-g-code", "skill-g-code",
+        ]
+        errors = []
+
+        for md in sorted(SPECS_DIR.glob("*.md")):
+            content = md.read_text(encoding="utf-8")
+            stem = md.stem
+
+            for section in BASE_REQUIRED:
+                if section not in content:
+                    errors.append(f"{md.name}: missing '{section}'")
+
+            if stem in FR_SPECS:
+                for section in FR_REQUIRED:
+                    if section not in content:
+                        errors.append(f"{md.name}: missing '{section}'")
+
+            if not content.startswith("# "):
+                errors.append(f"{md.name}: missing H1 title")
+
+            if "FR-1: ..." in content or "FR-2: ..." in content:
+                errors.append(f"{md.name}: contains placeholder FR text")
+
+        if errors:
+            print("SPEC VALIDATION FAILURES:")
+            for e in errors:
+                print(f"  [FAIL] {e}")
+            sys.exit(1)
+        else:
+            count = len(list(SPECS_DIR.glob("*.md")))
+            print(f"PASS: All {count} specs pass structural validation")
+        PYEOF
+
+    - name: Validate README links
+      run: |
+        npm install -g markdown-link-check
+        markdown-link-check README.md --quiet
+
+  deploy-pages:
+    needs: validate
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Setup Pages
+      uses: actions/configure-pages@v5
+
+    - name: Upload artifact
+      uses: actions/upload-pages-artifact@v3
+      with:
+        path: '.'
+
+    - name: Deploy to GitHub Pages
+      id: deployment
+      uses: actions/deploy-pages@v4

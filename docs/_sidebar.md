@@ -1,0 +1,16 @@
+- [📋 Overview](../README.md)
+- **Phase 1 — Ecosystem**
+  - [Architecture](../specs/ecosystem.md)
+  - [Naming Conventions](../specs/naming-conventions.md)
+- **Phase 2 — Core Specs**
+  - [Spiritual G-Code](../specs/spiritual-g-code.md)
+  - [Sync G-Code](../specs/sync-g-code.md)
+  - [Psychological G-Code](../specs/psychological-g-code.md)
+  - [Physiological G-Code](../specs/physiological-g-code.md)
+- **Phase 3 — Cross-Cutting**
+  - [Authentication](../specs/authentication.md)
+  - [API Conventions](../specs/api-conventions.md)
+  - [Bilingual Output](../specs/bilingual-output.md)
+- **Phase 4 — Tooling**
+  - [Program G-Code](../specs/program-g-code.md)
+  - [Skill G-Code](../specs/skill-g-code.md)
