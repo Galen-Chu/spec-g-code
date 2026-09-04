@@ -92,7 +92,6 @@ Inherited from [skill-g-code](https://github.com/Galen-Chu/skill-g-code):
 ---
 
 ## 🔗 Related Repos
-
 | Repository | Purpose |
 |-----------|---------|
 | [spiritual-g-code](https://github.com/Galen-Chu/spiritual-g-code) | 🔮 Django dashboard + astrology |
