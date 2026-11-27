@@ -28,7 +28,7 @@ spec-g-code  ─── the spec hub (this repo)
 ## 🗺️ Development Plan
 
 ### Phase 1 — Ecosystem Overview
-- [x] `specs/ecosystem.md` — How the six repos relate to each other
+- [x] `specs/ecosystem.md` — How the repos relate to each other
 - [x] `specs/naming-conventions.md` — Repo naming, module prefixes, API versioning
 
 ### Phase 2 — Core Specs
@@ -36,6 +36,8 @@ spec-g-code  ─── the spec hub (this repo)
 - [x] `specs/sync-g-code.md` — Daily content generation pipeline, Gemini API contract
 - [x] `specs/psychological-g-code.md` — Data schemas (chakras, sephirot, correspondences)
 - [x] `specs/physiological-g-code.md` — Codon-hexagram mapping algorithms, API surface
+- [x] `specs/sanctuary-g-code.md` — Determinism contract, system registry, statistical acceptance
+- [x] `specs/specimen-g-code.md` — Four invariants, staining step library, assay protocols
 
 ### Phase 3 — Cross-Cutting Concerns
 - [x] `specs/authentication.md` — Shared auth model across projects

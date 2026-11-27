@@ -38,6 +38,7 @@ jobs:
             "spiritual-g-code", "sync-g-code", "psychological-g-code",
             "physiological-g-code", "authentication", "api-conventions",
             "bilingual-output", "program-g-code", "skill-g-code",
+            "sanctuary-g-code", "specimen-g-code",
         ]
         errors = []
 
