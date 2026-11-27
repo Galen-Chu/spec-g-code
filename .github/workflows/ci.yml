@@ -6,6 +6,12 @@ on:
   pull_request:
     branches: [ main ]
 
+# Pages 部署併發防護：連續 push 時後跑的 run 排隊等前一個，不撞部署環境
+# （2026-11-25 兩個 commit 相隔 79 秒，造成「No artifacts named github-pages」假性失敗）
+concurrency:
+  group: pages-${{ github.ref }}
+  cancel-in-progress: false
+
 jobs:
   validate:
     runs-on: ubuntu-latest
